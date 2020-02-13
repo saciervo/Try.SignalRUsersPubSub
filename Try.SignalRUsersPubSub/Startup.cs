@@ -13,7 +13,9 @@ namespace Try.SignalRUsersPubSub
     using System.Text;
     using Hub;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
+    using Microsoft.AspNetCore.SignalR;
     using Microsoft.IdentityModel.Tokens;
+    using Services.SignalR;
 
     public class Startup
     {
@@ -28,6 +30,9 @@ namespace Try.SignalRUsersPubSub
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            services.AddSingleton<IUserIdProvider, NameBasedUserIdProvider>();
+
             services.AddAuthentication(x =>
                 {
                     x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
